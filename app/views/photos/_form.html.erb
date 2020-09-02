@@ -1,0 +1,49 @@
+<!--The reason we can use this shorter, simpler form_with declaration
+to stand in for either of the other forms is that @article is
+a resource corresponding to a full set of RESTful routes,
+and Rails is able to infer which URI and method to use.-->
+
+
+<%= form_with(model: @photo, local: true) do |form| %>
+  <% if @photo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
+
+      <ul>
+        <% @photo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="content">
+    <%= form.label :Title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="content">
+    <%= form.label :Description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="content">
+    <%= form.label :Created_by %>
+    <%= form.text_field :created_by %>
+  </div>
+
+  <div class="content">
+    <%= form.label :Visibility %>
+    <%= form.text_field :visibility %>
+  </div>
+
+
+  <div class="content">
+    <%= form.label :Photo %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

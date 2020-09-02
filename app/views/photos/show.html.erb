@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @photo.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @photo.description %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @photo.created_by %>
+</p>
+
+<p>
+  <strong>Visibility:</strong>
+  <%= @photo.visibility %>
+</p>
+
+
+<% if @photo.image.attached? %>
+  <p>
+    <strong>Photo:</strong>
+    <br>
+    <%= image_tag @photo.image %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>
