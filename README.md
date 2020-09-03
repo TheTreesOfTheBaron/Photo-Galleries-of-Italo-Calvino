@@ -34,3 +34,24 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+To do:
+1.Analyzing Files 
+https://evilmartians.com/chronicles/rails-5-2-active-storage-and-beyond
+Active Storage analyzes files once they've been uploaded by queuing a job in Active Job. Analyzed files will store additional information in the metadata hash, including analyzed: true. You can check whether a blob has been analyzed by calling analyzed? on it.
+Image analysis provides width and height attributes. Video analysis provides these, as well as duration, angle, and display_aspect_ratio.
+Analysis requires the mini_magick gem.
+
+CarrierWave
+https://github.com/carrierwaveuploader/carrierwave
+This gem provides a simple and extremely flexible way to upload files from Ruby applications. It works well with Rack based web applications, such as Ruby on Rails.
+
+2. Amazon S3
+
+3. Upload speed up N+1 queries
+https://stackoverflow.com/questions/27316190/how-to-speed-up-image-uploading-carrierwave-and-rails4
+if you're uploading big files, it's likely your local network's upload speed that is the bottleneck.
+
+4. handle huge mount of uploading
+increased the pool size in database.yml from 5 to 7
+puma could not obtain a connection from the pool within 5.000 seconds (waited 5.217 seconds); all pooled connections were in use

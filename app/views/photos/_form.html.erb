@@ -17,30 +17,32 @@ and Rails is able to infer which URI and method to use.-->
     </div>
   <% end %>
 
-  <div class="content">
+  <div class="field">
     <%= form.label :Title %>
     <%= form.text_field :title %>
   </div>
 
-  <div class="content">
+  <div class="field">
     <%= form.label :Description %>
     <%= form.text_area :description %>
   </div>
 
-  <div class="content">
+  <div class="field">
     <%= form.label :Created_by %>
     <%= form.text_field :created_by %>
   </div>
 
-  <div class="content">
+  <div class="field">
     <%= form.label :Visibility %>
     <%= form.text_field :visibility %>
   </div>
 
 
-  <div class="content">
+  <div class="field">
     <%= form.label :Photo %>
-    <%= form.file_field :image %>
+    <%#= form.file_field :image %>
+    <%= form.file_field :images, multiple: true %>
+
   </div>
 
   <div class="actions">

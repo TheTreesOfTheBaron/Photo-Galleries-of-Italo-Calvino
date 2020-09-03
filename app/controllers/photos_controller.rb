@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  #before_action :set_photo, only: [:show, :edit, :update, :destroy]
 
 
   #A frequent practice is to place the standard CRUD actions in each controller
@@ -21,6 +21,7 @@ class PhotosController < ApplicationController
     #Use an instance variable (prefixed with @) to hold a reference to the article object
     #as Rails will pass all instance variables to the view.
     # @photo = Photo.find(params[:id])
+    @photo = Photo.with_attached_images.find(params[:id])
   end
 
   # /photos/new
@@ -33,6 +34,7 @@ class PhotosController < ApplicationController
 
   # /photos/1/edit
   def edit
+    @photo = Photo.find(params[:id])
   end
 
   # POST /photos
@@ -77,6 +79,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
+    @photo = Photo.find(params[:id])
     #it accepts a hash containing the attributes that you want to update.
     #It is not necessary to pass all the attributes to update
 
@@ -94,6 +97,7 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
+    @photo = Photo.find(params[:id])
     @photo.destroy
     respond_to do |format|
       format.html { redirect_to photos_path, notice: 'Destroyed successfully.' }
@@ -101,14 +105,25 @@ class PhotosController < ApplicationController
     end
   end
 
-  private
-    def set_photo
-      @photo = Photo.find(params[:id])
+  # DELETE /photos/all
+  def all_destroy
+    @photos = Photo.where(visibility: "3") #temp set
+    @photos.destroy_all
+    respond_to do |format|
+      format.html { redirect_to photos_path, notice: 'All photos were successfully destroyed.' }
+      format.json { head :no_content }
     end
+  end
+
+
+  private
+    # def set_photo
+    #   @photo = Photo.find(params[:id])
+    # end
     # define our permitted controller parameters to prevent wrongful mass assignment.
     def photo_params
       #strong parameters
-      params.require(:photo).permit(:title, :description, :created_by, :visibility, :image)
+      params.require(:photo).permit(:title, :description, :created_by, :visibility, images:[])
     end
 end
 

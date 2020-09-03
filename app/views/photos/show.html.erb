@@ -21,11 +21,14 @@
 </p>
 
 
-<% if @photo.image.attached? %>
+<% if @photo.images.attached? %>
   <p>
-    <strong>Photo:</strong>
+    <strong>Photos:</strong>
     <br>
-    <%= image_tag @photo.image %>
+    <% @photo.images.each do |image| %>
+      <%= image_tag(image) %>
+    <% end %>
+    <%#= image_tag @photo.image %>
   </p>
 <% end %>
 

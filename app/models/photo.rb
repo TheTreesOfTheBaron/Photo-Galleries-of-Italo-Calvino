@@ -1,6 +1,25 @@
 class Photo < ApplicationRecord
   # use active storage
-  has_one_attached :image
+  # When you set up a has_many relationship to have a dependent: :destroy
+  # it instantiates an instance for every child class and deletes it
+  # individually in case that class also has dependencies that need to be
+  # destroyed. If you know for sure that children classes don’t have any
+  # dependencies that need to be deleted you can just use dependent: :delete_all.
+  #
+  # When children records don’t have any dependencies that would have to be
+  # deleted from the database use dependent: :delete_all instead of :destroy
+  has_many_attached :images, dependent: :destroy_all#delete_all
+
+  #The easiest way to sum it up is to use delete if you want records to be deleted quickly. However, if you care about models callbacks, referential integrity, or validations (for example, setting a criteria to not destroy a record unless a certain condition is “true”), then use destroy.
+
+  #eager_load uses a left join
+  # N+1 queries
+  # if we tell Active Record about the associations we plan to use later,
+  # it can preload the associated records with a small number of queries,
+  # so that any looping can happen over records that are already in memory.
+  scope :with_eager_loaded_images, -> { eager_load(images_attachments: :blob) }
+
+  # mount_uploader :photo, PhotoUploader
 
 # ensure that all photos have a title that is at least 1 character long
   validates :title, presence: true,
