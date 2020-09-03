@@ -5,6 +5,7 @@ class CreatePhotos < ActiveRecord::Migration[6.0]
       t.text :description
       t.string :created_by
       t.string :visibility
+      t.belongs_to :user, foreign_key: true
 
       t.timestamps
     end

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  #user_root to: 'photos#index'
+  #root to: 'photos#index'
+  devise_for :users
+
   get 'welcome/index'
 
   #In Rails, a resourceful route provides a mapping between HTTP verbs
@@ -14,6 +18,5 @@ Rails.application.routes.draw do
   resources :photos do
     delete :all_destroy, on: :collection
   end
-
   root 'welcome#index'
 end

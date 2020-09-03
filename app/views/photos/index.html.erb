@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<!--<p id="notice"><%#= notice %></p>-->
+
 
 <h1>Photos About Calvino</h1>
 
@@ -26,10 +27,10 @@
       <td><%= link_to 'Destroy', photo_path(photo), method: :delete, data: {confirm: 'Are you sure you want to delete this photo?'} %></td>
     </tr>
   <% end %>
-  <br>
-  <tr>
-    <td><%= link_to 'Destroy All', all_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of the photos?' } %></td>
-  </tr>
+<!--  <br><br>-->
+<!--  <tr>-->
+<!--    <td><%#= link_to 'Destroy All', all_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of the photos?' } %></td>-->
+<!--  </tr>-->
   </tbody>
 
 </table>
@@ -38,6 +39,7 @@
 <!--If you want to link to an action in the same controller,
 you don't need to specify the :controller option,
 as Rails will use the current controller by default.-->
-<%= link_to 'Add New Photo', new_photo_path %>
-<br> <br>
+<%= link_to 'Add New Photo', new_photo_path %> |
+<%= link_to 'Destroy All', all_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of the photos?' } %>
+<br><br><br>
 <%= link_to 'Home Page', root_path %>

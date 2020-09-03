@@ -21,9 +21,12 @@ class Photo < ApplicationRecord
 
   # mount_uploader :photo, PhotoUploader
 
-# ensure that all photos have a title that is at least 1 character long
-  validates :title, presence: true,
-            length: { minimum: 1 }
+  # ensure that all photos have a title and a created_by that is at least 1 character long
+  # also ensure the visibility must be set to either public or private
+  # ensure the photos are provided
+  validates :title, :created_by, presence: true, length: { minimum: 1 }
+  validates :visibility, :inclusion => { :in => %w(public private), :message => "%{value} must be either public or private" }
+  validates_presence_of :images
 end
 
 

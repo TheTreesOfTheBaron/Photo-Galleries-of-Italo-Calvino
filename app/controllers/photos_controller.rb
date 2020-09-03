@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_action :authenticate_user!
   #before_action :set_photo, only: [:show, :edit, :update, :destroy]
 
 
@@ -123,7 +124,7 @@ class PhotosController < ApplicationController
     # define our permitted controller parameters to prevent wrongful mass assignment.
     def photo_params
       #strong parameters
-      params.require(:photo).permit(:title, :description, :created_by, :visibility, images:[])
+      params.require(:photo).permit(:title, :description, :created_by, :visibility, images:[]).merge(created_by: current_user.email)
     end
 end
 
