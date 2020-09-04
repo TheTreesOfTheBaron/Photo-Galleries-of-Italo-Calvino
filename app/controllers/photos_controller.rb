@@ -1,41 +1,49 @@
 class PhotosController < ApplicationController
   before_action :authenticate_user!
-  #before_action :set_photo, only: [:show, :edit, :update, :destroy]
-
 
   #A frequent practice is to place the standard CRUD actions in each controller
   # in the following order: index, show, new, edit, create, update and destroy.
   # They must be placed before declaring private visibility in the controller.
 
-  # Show all of the photos
+  # Show all photos of the current user and photos are publicly visible
   # /photos
   # /photos.json
   def index
-    @photos = Photo.all
+    query_current_user = "created_by = \"#{current_user.email}\""
+    query_public = "created_by != \"#{current_user.email}\" AND visibility = 'public'"
+
+    # Use the built-in with_attached_images scope to avoid N+1 queries
+    @photos_current_user = Photo.where(query_current_user).with_attached_images
+    @photos_public = Photo.where(query_public).with_attached_images
   end
 
-  # Show the selected photo
+  # Show the selected photos
   # /photos/1
   # /photos/1.json
   def show
-    #passing in params[:id] to get the :id parameter from the request.
-    #Use an instance variable (prefixed with @) to hold a reference to the article object
-    #as Rails will pass all instance variables to the view.
-    # @photo = Photo.find(params[:id])
-    @photo = Photo.with_attached_images.find(params[:id])
+    query = "created_by = \"#{current_user.email}\" OR visibility = 'public'"
+    @photo = Photo.where(query).with_attached_images.find(params[:id])
+    @user_current = current_user.email
   end
 
   # /photos/new
   def new
-    # new action is now creating a new instance variable called @article
-    #The reason why we added @article = Article.new is that otherwise
-    # @article would be nil in our view, and calling @article.errors.any? would throw an error.
     @photo = Photo.new
   end
 
   # /photos/1/edit
   def edit
-    @photo = Photo.find(params[:id])
+    begin
+      query = "created_by = \"#{current_user.email}\""
+      @photo = Photo.where(query).with_attached_images.find(params[:id])
+
+      #/photos/1/edit: when 1 doesn't belong to the current user
+    rescue StandardError => e
+      # respond_to do |format|
+      #   format.html { redirect_to photo_path, notice: 'Sorry, you have no permission to edit this photo.' }
+      # end
+      redirect_to photo_path, notice: 'Sorry, you have no permission to edit this photo.'
+    end
   end
 
   # POST /photos
@@ -80,9 +88,8 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
-    @photo = Photo.find(params[:id])
-    #it accepts a hash containing the attributes that you want to update.
-    #It is not necessary to pass all the attributes to update
+    query = "created_by = \"#{current_user.email}\""
+    @photo = Photo.where(query).with_attached_images.find(params[:id])
 
     respond_to do |format|
       if @photo.update(photo_params)
@@ -98,7 +105,9 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
-    @photo = Photo.find(params[:id])
+    query = "created_by = \"#{current_user.email}\""
+    @photo = Photo.where(query).with_attached_images.find(params[:id])
+
     @photo.destroy
     respond_to do |format|
       format.html { redirect_to photos_path, notice: 'Destroyed successfully.' }
@@ -106,9 +115,11 @@ class PhotosController < ApplicationController
     end
   end
 
+  # Delete all photos belong to current user
   # DELETE /photos/all
   def all_destroy
-    @photos = Photo.where(visibility: "3") #temp set
+    query = "created_by = \"#{current_user.email}\""
+    @photos = Photo.where(query).with_attached_images
     @photos.destroy_all
     respond_to do |format|
       format.html { redirect_to photos_path, notice: 'All photos were successfully destroyed.' }
@@ -118,9 +129,6 @@ class PhotosController < ApplicationController
 
 
   private
-    # def set_photo
-    #   @photo = Photo.find(params[:id])
-    # end
     # define our permitted controller parameters to prevent wrongful mass assignment.
     def photo_params
       #strong parameters

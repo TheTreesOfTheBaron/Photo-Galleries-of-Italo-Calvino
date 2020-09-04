@@ -1,5 +1,3 @@
-<!--<p id="notice"><%#= notice %></p>-->
-
 <p>
   <strong>Title:</strong>
   <%= @photo.title %>
@@ -20,6 +18,11 @@
   <%= @photo.visibility %>
 </p>
 
+<p>
+  <strong>Created at:</strong>
+  <%= @photo.created_at %>
+</p>
+
 
 <% if @photo.images.attached? %>
   <p>
@@ -28,9 +31,11 @@
     <% @photo.images.each do |image| %>
       <%= image_tag(image) %>
     <% end %>
-    <%#= image_tag @photo.image %>
   </p>
 <% end %>
 
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<% if @photo.created_by == @user_current %>
+  <%= link_to 'Edit', edit_photo_path(@photo) %> |
+<% end %>
+
 <%= link_to 'Back', photos_path %>

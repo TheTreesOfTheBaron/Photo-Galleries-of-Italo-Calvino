@@ -55,3 +55,6 @@ if you're uploading big files, it's likely your local network's upload speed tha
 4. handle huge mount of uploading
 increased the pool size in database.yml from 5 to 7
 puma could not obtain a connection from the pool within 5.000 seconds (waited 5.217 seconds); all pooled connections were in use
+
+5.Added file size and content type validations to ActiveModel
+gem 'file_validators'
