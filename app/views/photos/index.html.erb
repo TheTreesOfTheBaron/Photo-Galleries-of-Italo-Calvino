@@ -3,19 +3,37 @@
   <table>
   <thead>
   <tr>
+    <th>Select</th>
     <th>Title</th>
     <th>Description</th>
     <th>Created By</th>
     <th>Visibility</th>
     <th>Created At</th>
-    <th colspan="5"></th>
+    <th colspan="6"></th>
   </tr>
   </thead>
 
   <tbody>
+
+  <%= form_for :photos_current_user, url: {action: :select_destroy}, html: {method: :delete}, data: { confirm: 'Are you sure you want to delete the selected photos?' } do |f| %>
+    <% @photos_current_user.each do |photo| %>
+      <div>
+        <%#= f.check_box :checked, {multiple: true}, photo.id, nil %>
+        <%#= check_box(f, "checked", {multiple: true}, photo.id, nil) %>
+        <%= check_box_tag "photo_ids[]", photo.id%>
+        <%= "title: #{photo.title}" "id: #{photo.id}" %>
+      </div>
+    <% end %>
+    <%#= f.submit link_to 'Delete Selected Photos', select_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of your photos?' } %>
+
+    <%= submit_tag 'Delete Selected Photos' %>
+  <% end %>
+
+
 <!--  have the permission to show, edit, and destroy when the photos were created by the user-->
   <% @photos_current_user.each do |photo| %>
     <tr>
+      <!--      <td><%#= check_box("tag", {checked: false }) %></td>-->
       <td><%= photo.title %></td>
       <td><%= photo.description %></td>
       <td><%= photo.created_by %></td>
@@ -30,6 +48,7 @@
   <!--  have the permission to only show when the photos were created by others and are publicly visible-->
   <% @photos_public.each do |photo| %>
     <tr>
+      <td></td>
       <td><%= photo.title %></td>
       <td><%= photo.description %></td>
       <td><%= photo.created_by %></td>
@@ -41,6 +60,8 @@
   </tbody>
 </table>
   <br>
+  <%#= link_to 'Delete Selected Photos', select_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of your photos?' } %>
+
   <%= link_to 'Delete All of My Photos', all_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of your photos?' } %>
 
 <% else %>
@@ -52,5 +73,6 @@
 <!--If you want to link to an action in the same controller,
 you don't need to specify the :controller option,
 as Rails will use the current controller by default.-->
-<%= link_to 'Add New Photos', new_photo_path %> |
+<%= link_to 'Add New Photos', new_photo_path %>
+<br><br>
 <%= link_to 'Home Page', root_path %>

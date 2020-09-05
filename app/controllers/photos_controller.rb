@@ -21,9 +21,15 @@ class PhotosController < ApplicationController
   # /photos/1
   # /photos/1.json
   def show
-    query = "created_by = \"#{current_user.email}\" OR visibility = 'public'"
-    @photo = Photo.where(query).with_attached_images.find(params[:id])
-    @user_current = current_user.email
+    begin
+      query = "created_by = \"#{current_user.email}\" OR visibility = 'public'"
+      @photo = Photo.where(query).with_attached_images.find(params[:id])
+      @user_current = current_user.email
+
+      #/photos/1: when 1 doesn't belong to the current user and is private
+    rescue StandardError => e
+      redirect_to photos_path, notice: 'Sorry, you have no permission to view this photo.'
+    end
   end
 
   # /photos/new
@@ -111,6 +117,30 @@ class PhotosController < ApplicationController
     @photo.destroy
     respond_to do |format|
       format.html { redirect_to photos_path, notice: 'Destroyed successfully.' }
+      format.json { head :no_content }
+    end
+  end
+
+
+
+  # Delete selected photos belong to current user
+  # DELETE /photos/all
+  def select_destroy
+    # fetch checked id and find record from model
+    puts " -=========="
+    # puts {:checked}
+    # query = "id = \"#{:checked}\""
+    # #query = "created_by = \"#{current_user.email}\""
+    # @photos = Photo.where(query).with_attached_images
+    # checked_ids = params[:photos][:checked]
+    # puts {:checked}
+    # @photos = Photo.where(id: checked_ids).with_attached_images
+    # @photos.destroy_all
+    @photos = Photo.where(id: params[:photo_ids]).with_attached_images
+    @photos.destroy_all
+    # Photo.destroy(params[:photo_ids])
+    respond_to do |format|
+      format.html { redirect_to photos_path, notice: 'Selected photos were successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -30,6 +30,11 @@ class Photo < ApplicationRecord
             file_size: { less_than_or_equal_to: 2.megabyte },
             file_content_type: { allow: ['image/jpeg', 'image/jpg', 'image/png'], message: 'only %{types} are allowed' }
 
+
+
+  # def checked=(checked)
+  #   checked.reject(&:blank?)
+  # end
 end
 
 
