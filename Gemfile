@@ -31,6 +31,10 @@ gem 'devise'
 #Adds file size and content type validations to ActiveModel
 gem 'file_validators'
 
+#Simple to check and uncheck checkboxes
+gem 'select_all-rails'
+
+
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

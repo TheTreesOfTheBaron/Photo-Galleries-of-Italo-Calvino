@@ -125,9 +125,8 @@ class PhotosController < ApplicationController
 
   # Delete selected photos belong to current user
   # DELETE /photos/all
-  def select_destroy
+  def destroy_multiple
     # fetch checked id and find record from model
-    puts " -=========="
     # puts {:checked}
     # query = "id = \"#{:checked}\""
     # #query = "created_by = \"#{current_user.email}\""

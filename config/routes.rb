@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # definitions is required to establish the scope for the router DSL
   # and must not be deleted.
   resources :photos do
-    delete :select_destroy, on: :collection
+    delete :destroy_multiple, on: :collection
     delete :all_destroy, on: :collection
   end
   root 'welcome#index'

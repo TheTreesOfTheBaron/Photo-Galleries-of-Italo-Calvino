@@ -1,78 +1,65 @@
 <% if !@photos_current_user.blank? || !@photos_public.blank?%>
   <h1>Photos About Calvino</h1>
-  <table>
-  <thead>
-  <tr>
-    <th>Select</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Created By</th>
-    <th>Visibility</th>
-    <th>Created At</th>
-    <th colspan="6"></th>
-  </tr>
-  </thead>
 
-  <tbody>
+  <%= form_tag destroy_multiple_photos_path, method: :delete, data: {confirm: 'Are you sure you want to delete the selected photos?'} do %>
+    <table class="footable table table-bordered toggle-arrow-tiny" data-page-size="31" data-filter=#filter>
+      <thead>
+      <tr>
+<!--        <th data-sort-ignore="true"><input type="checkbox" id="selectAll"></input></th>-->
+        <th></th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created By</th>
+        <th>Visibility</th>
+        <th>Created At</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!--  have the permission to show, edit, and destroy when the photos were created by the user-->
+      <% @photos_current_user.each do |photo| %>
+        <tr>
+          <td><%= check_box_tag "photo_ids[]", photo.id, false, class: 'selectable' %></td>
+          <td><%= photo.title %></td>
+          <td><%= photo.description %></td>
+          <td><%= photo.created_by %></td>
+          <td><%= photo.visibility %></td>
+          <td><%= photo.created_at %></td>
+          <td><%= link_to 'Show', photo_path(photo) %></td>
+          <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
+          <td><%= link_to 'Destroy', photo_path(photo), method: :delete, data: {confirm: 'Are you sure you want to delete this photo?'} %></td>
+        </tr>
+      <% end %>
 
-  <%= form_for :photos_current_user, url: {action: :select_destroy}, html: {method: :delete}, data: { confirm: 'Are you sure you want to delete the selected photos?' } do |f| %>
-    <% @photos_current_user.each do |photo| %>
-      <div>
-        <%#= f.check_box :checked, {multiple: true}, photo.id, nil %>
-        <%#= check_box(f, "checked", {multiple: true}, photo.id, nil) %>
-        <%= check_box_tag "photo_ids[]", photo.id%>
-        <%= "title: #{photo.title}" "id: #{photo.id}" %>
-      </div>
-    <% end %>
-    <%#= f.submit link_to 'Delete Selected Photos', select_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of your photos?' } %>
-
-    <%= submit_tag 'Delete Selected Photos' %>
+      <!--  have the permission to only show when the photos were created by others and are publicly visible-->
+      <% @photos_public.each do |photo| %>
+        <tr>
+          <td></td>
+          <td><%= photo.title %></td>
+          <td><%= photo.description %></td>
+          <td><%= photo.created_by %></td>
+          <td><%= photo.visibility %></td>
+          <td><%= photo.created_at %></td>
+          <td><%= link_to 'Show', photo_path(photo) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="12">
+          <ul class="pagination pull-right"></ul>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+    <%= submit_tag "Delete Selected" %> |
+    <%= link_to 'Delete All of My Photos', all_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of your photos?' } %>
   <% end %>
-
-
-<!--  have the permission to show, edit, and destroy when the photos were created by the user-->
-  <% @photos_current_user.each do |photo| %>
-    <tr>
-      <!--      <td><%#= check_box("tag", {checked: false }) %></td>-->
-      <td><%= photo.title %></td>
-      <td><%= photo.description %></td>
-      <td><%= photo.created_by %></td>
-      <td><%= photo.visibility %></td>
-      <td><%= photo.created_at %></td>
-      <td><%= link_to 'Show', photo_path(photo) %></td>
-      <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
-      <td><%= link_to 'Destroy', photo_path(photo), method: :delete, data: {confirm: 'Are you sure you want to delete this photo?'} %></td>
-    </tr>
-  <% end %>
-
-  <!--  have the permission to only show when the photos were created by others and are publicly visible-->
-  <% @photos_public.each do |photo| %>
-    <tr>
-      <td></td>
-      <td><%= photo.title %></td>
-      <td><%= photo.description %></td>
-      <td><%= photo.created_by %></td>
-      <td><%= photo.visibility %></td>
-      <td><%= photo.created_at %></td>
-      <td><%= link_to 'Show', photo_path(photo) %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-  <br>
-  <%#= link_to 'Delete Selected Photos', select_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of your photos?' } %>
-
-  <%= link_to 'Delete All of My Photos', all_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of your photos?' } %>
 
 <% else %>
   <h1>Nothing to display. Add some photos now :)</h1>
 <% end %>
 
-<br><br>
-
-<!--If you want to link to an action in the same controller,
-you don't need to specify the :controller option,
-as Rails will use the current controller by default.-->
+<br>
 <%= link_to 'Add New Photos', new_photo_path %>
-<br><br>
+<br><br><br>
 <%= link_to 'Home Page', root_path %>
