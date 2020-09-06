@@ -1,9 +1,3 @@
-<!--The reason we can use this shorter, simpler form_with declaration
-to stand in for either of the other forms is that @article is
-a resource corresponding to a full set of RESTful routes,
-and Rails is able to infer which URI and method to use.-->
-
-
 <%= form_with(model: @photo, local: true) do |form| %>
   <% if @photo.errors.any? %>
     <div id="error_explanation">

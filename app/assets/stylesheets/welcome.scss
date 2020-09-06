@@ -1,3 +1,84 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.header{
+  background-image: url(pics/IC.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-top:47%;
+  text-align: center;
+  color: peru;
+  font-family: Trattatello, fantasy
+}
+.text{
+  background-image: url(pics/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: aliceblue;
+  font-family: 'Gothic A1', sans-serif;
+  padding-top:10px;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.photo{
+  width: 500px;
+  height: 500px;
+  align: center
+}
+
+.link{
+  text-align: center;
+  font-size: 30px;
+  color: peru;
+  font-family: Trattatello, fantasy
+}
+
+
+// tooltip
+
+a.tooltip {
+  outline: none;
+  font-size: 18px;
+  color: peru;
+  text-decoration: underline;
+  line-height: 30px;
+}
+
+a.tooltip strong {
+  line-height: 30px;
+}
+
+a.tooltip:hover {
+  text-decoration: none;
+  font-size: 18px;
+  color: peru;
+  font-weight: bold;
+}
+
+a.tooltip span {
+  z-index: 10;
+  display: none;
+  padding: 14px 20px;
+  margin-top: 60px;
+  margin-left: -160px;
+  width: 300px;
+  line-height: 16px;
+}
+
+a.tooltip:hover span {
+  display: inline;
+  position: absolute;
+}
+
+.callout {
+  z-index: 20;
+  position: absolute;
+  border: 0;
+  top: -240px;
+  left: 140px;
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
