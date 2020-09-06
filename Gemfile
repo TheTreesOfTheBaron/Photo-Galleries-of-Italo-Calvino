@@ -28,7 +28,7 @@ gem 'image_processing', '~> 1.2'
 #Devise is a flexible authentication solution for Rails based on Warden.
 gem 'devise'
 
-#Adds file size and content type validations to ActiveModel
+#Add file size and content type validations to ActiveModel
 gem 'file_validators'
 
 #Simple to check and uncheck checkboxes
@@ -42,6 +42,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  #Add testing
+  gem 'rspec-rails'
 end
 
 group :development do
