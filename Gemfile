@@ -34,6 +34,14 @@ gem 'file_validators'
 #Simple to check and uncheck checkboxes
 gem 'select_all-rails'
 
+#use S3
+gem "aws-sdk-s3", require: false
+
+#to upload code to production
+gem 'capistrano', '~> 3.11'
+gem 'capistrano-rails', '~> 1.4'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
 
 
 # Reduces boot times through caching; required in config/boot.rb
