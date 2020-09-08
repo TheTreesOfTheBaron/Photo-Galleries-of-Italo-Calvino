@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   resources :photos do
     delete :destroy_multiple, on: :collection
-    # delete :all_destroy, on: :collection
   end
   root 'welcome#index'
 end

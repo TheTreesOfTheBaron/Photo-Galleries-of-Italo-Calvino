@@ -90,7 +90,6 @@ class PhotosController < ApplicationController
   end
 
 
-
   # Delete selected photos belong to current user
   # DELETE /photos/all
   def destroy_multiple
@@ -102,23 +101,9 @@ class PhotosController < ApplicationController
     end
   end
 
-  # # Delete all photos belong to current user
-  # # DELETE /photos/all
-  # def all_destroy
-  #   query = "created_by = \"#{current_user.email}\""
-  #   @photos = Photo.where(query).with_attached_images
-  #   @photos.destroy_all
-  #   respond_to do |format|
-  #     format.html { redirect_to photos_path, notice: 'All photos were successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
-
 
   private
-    # define our permitted controller parameters to prevent wrongful mass assignment.
     def photo_params
-      #strong parameters
       params.require(:photo).permit(:title, :description, :created_by, :visibility, images:[]).merge(created_by: current_user.email)
     end
 end
