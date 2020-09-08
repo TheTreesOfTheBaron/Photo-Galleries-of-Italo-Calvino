@@ -8,44 +8,44 @@ but only have the permission to show when the photos were created by others and 
 
 ## Features
 
-### SEARCH function (To be added)
-from characteristics of the images
+#### SEARCH function (To be added)
+- [ ] from characteristics of the images
 
-from text
+- [ ] from text
 
-from an image (search for similar images)
+- [ ] from an image (search for similar images)
     
-### ADD image(s) to the repository (Partially Done)
-one / bulk / enormous amount of images (Done) 
+#### ADD image(s) to the repository (Partially Done)
+- [x] one / bulk / enormous amount of images (Done) 
 
-private or public (permissions) (Done)
+- [x] private or public (permissions) (Done)
 
-secure uploading and stored images (To be added)
+- [ ] secure uploading and stored images (To be added)
     
-### DELETE image(s) (Done)
-one / bulk / selected / all image
+#### DELETE image(s) (Done)
+- [x] one / bulk / selected / all image
 
-Prevent a user deleting images from another user (access control)
+- [x] Prevent a user deleting images from another user (access control)
 
-secure deletion of images
+- [x] secure deletion of images
 
-### SELL/BUY images (To be added)
-ability to manage inventory
+#### SELL/BUY images (To be added)
+- [ ] ability to manage inventory
 
-set price
+- [ ] set price
 
-discounts
+- [ ] discounts
 
-handle money
+- [ ] handle money
 
 
 ## Requirements
 
-Ruby 2.7.1
+- Ruby 2.7.1
 
-Rails 6.0.3.2
+- Rails 6.0.3.2
 
-Bundler 2.1.4
+- Bundler 2.1.4
 
 
 ## Technologies
@@ -54,55 +54,33 @@ Bundler 2.1.4
 
 Active Storage
 
-**Build JSON APIs.**
+**Build JSON APIs.** `gem 'jbuilder', '~> 2.7'`
 
-gem 'jbuilder', '~> 2.7'
+**Use Active Storage variant** `gem 'image_processing', '~> 1.2'`
 
-**Use Active Storage variant**
+**Devise is a flexible authentication solution for Rails based on Warden** `gem 'devise'`
 
-gem 'image_processing', '~> 1.2'
+**Add file size and content type validations to ActiveModel** `gem 'file_validators'`
 
-**Devise is a flexible authentication solution for Rails based on Warden**
+**Simple to check and uncheck checkboxes** `gem 'select_all-rails'`
 
-gem 'devise'
+**Use S3** `gem "aws-sdk-s3", require: false`
 
-**Add file size and content type validations to ActiveModel**
+**Add testing** `gem 'rspec-rails'`
 
-gem 'file_validators'
-
-**Simple to check and uncheck checkboxes**
-
-gem 'select_all-rails'
-
-**Use S3**
-
-gem "aws-sdk-s3", require: false
-
-**Add testing**
-
-gem 'rspec-rails'
-
-**To upload code to production**
-
-gem 'capistrano', '~> 3.11'
-
-gem 'capistrano-rails', '~> 1.4'
-
-gem 'capistrano-passenger', '~> 0.2.0'
-
-gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+**To upload code to production** `gem 'capistrano', '~> 3.11'` `gem 'capistrano-rails', '~> 1.4'` `gem 'capistrano-passenger', '~> 0.2.0'``gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'`
 
 
 ## Running the app
 
-Clone the repo to your local machine: git clone RepoURL
+1. Clone the repo to your local machine: `git clone RepoURL`
 
-Install dependencies: bundle install
+2. Install dependencies: `bundle install`
 
-Migrate the database: rails db:migrate
+3. Migrate the database: `rails db:migrate`
 
-Seed the database: rails db:seed
+4. Seed the database: `rails db:seed`
 
-Run the server: rails server
+5. Run the server: `rails server`
 
-Open the URL in your browser: http://localhost:3000
+6. Open the URL in your browser: http://localhost:3000
