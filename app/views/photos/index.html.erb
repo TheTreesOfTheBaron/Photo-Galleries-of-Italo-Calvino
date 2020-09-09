@@ -55,14 +55,15 @@
       </tr>
       </tfoot>
     </table>
-    <%= submit_tag "Delete Selected" %> |
-    <%= link_to 'Add New Photos', new_photo_path,class:"photo_link" %>
-    <%#= link_to 'Delete All of My Photos', all_destroy_photos_path, method: :delete, data: { confirm: 'Are you sure you want to delete ALL of your photos?' } %>
+    <%= submit_tag "Delete Selected" %>
   <% end %>
 
 <% else %>
   <h1>Nothing to display. Add some photos now :)</h1>
 <% end %>
+
+<br><br><br>
+<%= link_to 'Add New Photos', new_photo_path,class:"photo_link" %>
 
 <br><br><br>
 <div class = "back_to_home">
